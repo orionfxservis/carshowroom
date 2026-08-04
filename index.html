@@ -1,802 +1,2412 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al Majd Motors — Rent &amp; Sale of Cars, UAE</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* ============ DESIGN TOKENS ============ */
-:root{
-  --ink-navy: #0B1E33;
-  --ink-navy-2: #10273f;
-  --gold: #C9A227;
-  --gold-light: #E4C862;
-  --pearl: #F7F5F0;
-  --pearl-2: #EFEBE1;
-  --charcoal: #1F2937;
-  --steel: #8A94A6;
-  --emerald: #0F4C3A;
-  --white: #FFFFFF;
-  --line: rgba(11,30,51,0.12);
-  --shadow: 0 10px 30px rgba(11,30,51,0.12);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeDrive UAE | Premium Car Showroom</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  --font-display-en: 'Marcellus', serif;
-  --font-display-ar: 'Amiri', serif;
-  --font-body-en: 'Inter', sans-serif;
-  --font-body-ar: 'Cairo', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-}
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E5A3;
+            --dark: #0A0A0A;
+            --dark-blue: #0D1B2A;
+            --navy: #1B2838;
+            --charcoal: #2C2C2C;
+            --white: #FFFFFF;
+            --gray: #B0B0B0;
+            --accent-blue: #1E3A5F;
+            --accent-red: #8B0000;
+        }
 
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-html, body{ height:100%; }
-body{
-  margin:0;
-  background:var(--pearl);
-  color:var(--charcoal);
-  font-family:var(--font-body-en);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-#app{ flex:1 0 auto; }
-footer{ flex-shrink:0; }
-html[lang="ar"] body{ font-family:var(--font-body-ar); }
-h1,h2,h3,h4,.display{
-  font-family:var(--font-display-en);
-  color:var(--ink-navy);
-  margin:0;
-  font-weight:400;
-  letter-spacing:0.01em;
-}
-html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] .display{
-  font-family:var(--font-display-ar);
-  font-weight:700;
-}
-.mono{ font-family:var(--font-mono); letter-spacing:0.02em; }
-a{ color:inherit; text-decoration:none; }
-button{ font-family:inherit; cursor:pointer; }
-img{ max-width:100%; display:block; }
-:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
-.container{ max-width:1180px; margin-inline:auto; padding-inline:24px; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
-}
+        body.ar {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
 
-/* ============ SEAL BADGE (signature element) ============ */
-.seal{
-  --seal-color: var(--gold);
-  width:64px;height:64px;
-  border-radius:50%;
-  border:2px solid var(--seal-color);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-  flex-shrink:0;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 60%),
-    var(--pearl);
-}
-.seal::before{
-  content:"";
-  position:absolute; inset:5px;
-  border-radius:50%;
-  border:1px dashed var(--seal-color);
-  opacity:0.6;
-}
-.seal .seal-label{
-  font-family:var(--font-mono);
-  font-size:8.5px;
-  font-weight:600;
-  letter-spacing:0.04em;
-  text-align:center;
-  color:var(--ink-navy);
-  text-transform:uppercase;
-  line-height:1.15;
-  z-index:1;
-}
-.seal.sale{ --seal-color: var(--emerald); }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
 
-/* ============ HEADER ============ */
-header{
-  position:sticky; top:0; z-index:100;
-  background:var(--ink-navy);
-  border-bottom:1px solid rgba(201,162,39,0.25);
-}
-.header-top{
-  background:var(--ink-navy-2);
-  font-size:12.5px;
-  color:var(--gold-light);
-}
-.header-top .container{
-  display:flex; justify-content:space-between; align-items:center;
-  padding-block:7px;
-  gap:16px;
-  flex-wrap:wrap;
-}
-.header-top-item{ display:flex; align-items:center; gap:6px; opacity:0.9; }
-.header-main{ padding-block:16px; }
-.header-main .container{
-  display:flex; align-items:center; justify-content:space-between; gap:20px;
-}
-.brand{ display:flex; align-items:center; gap:12px; }
-.brand-mark{
-  width:44px;height:44px; border:1.5px solid var(--gold);
-  border-radius:50%; display:flex; align-items:center; justify-content:center;
-  color:var(--gold); font-family:var(--font-display-en); font-size:19px;
-}
-.brand-name{ color:var(--white); }
-.brand-name .en{ display:block; font-family:var(--font-display-en); font-size:19px; letter-spacing:0.03em; }
-.brand-name .ar{ display:block; font-family:var(--font-display-ar); font-size:13px; color:var(--gold-light); margin-top:1px; }
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
+        }
 
-nav.main-nav{ display:flex; align-items:center; gap:28px; }
-nav.main-nav a{
-  color:var(--pearl); font-size:14.5px; font-weight:500; position:relative; padding-block:4px;
-  opacity:0.85;
-}
-nav.main-nav a:hover{ opacity:1; color:var(--gold-light); }
-nav.main-nav a.active{ color:var(--gold-light); opacity:1; }
-nav.main-nav a.active::after{
-  content:""; position:absolute; inset-inline-start:0; bottom:-3px; width:100%; height:2px; background:var(--gold);
-}
-.header-actions{ display:flex; align-items:center; gap:12px; }
-.lang-toggle{
-  background:transparent; border:1px solid rgba(201,162,39,0.5); color:var(--gold-light);
-  border-radius:20px; padding:7px 14px; font-size:13px; font-weight:600; letter-spacing:0.03em;
-  display:flex; align-items:center; gap:6px;
-}
-.lang-toggle:hover{ background:rgba(201,162,39,0.12); }
-.menu-toggle{ display:none; background:none; border:none; color:var(--white); font-size:24px; }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--charcoal);
+            border-top: 3px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-@media (max-width: 880px){
-  nav.main-nav{
-    position:fixed; inset-inline-start:0; top:0; height:100%; width:78%; max-width:320px;
-    background:var(--ink-navy); flex-direction:column; align-items:flex-start; gap:0;
-    padding:90px 28px 28px; transform:translateX(-105%); transition:transform 0.3s ease; z-index:200;
-  }
-  html[dir="rtl"] nav.main-nav{ transform:translateX(105%); }
-  nav.main-nav.open{ transform:translateX(0); }
-  nav.main-nav a{ width:100%; padding-block:14px; border-bottom:1px solid rgba(255,255,255,0.08); }
-  .menu-toggle{ display:block; }
-  .nav-scrim{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:150; }
-  .nav-scrim.open{ display:block; }
-}
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
-/* ============ BUTTONS ============ */
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:13px 26px; border-radius:3px; font-size:14.5px; font-weight:600;
-  letter-spacing:0.02em; border:1px solid transparent; transition:all 0.15s ease;
-}
-.btn-gold{ background:var(--gold); color:var(--ink-navy); }
-.btn-gold:hover{ background:var(--gold-light); }
-.btn-outline{ border-color:rgba(247,245,240,0.5); color:var(--pearl); }
-.btn-outline:hover{ border-color:var(--gold); color:var(--gold-light); }
-.btn-navy{ background:var(--ink-navy); color:var(--pearl); }
-.btn-navy:hover{ background:var(--ink-navy-2); }
-.btn-block{ width:100%; }
-.btn-sm{ padding:9px 18px; font-size:13px; }
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
 
-/* ============ HERO ============ */
-.hero{
-  position:relative;
-  padding-block:110px 70px;
-  overflow:hidden;
-  background:var(--ink-navy);
-  min-height:640px;
-  display:flex;
-  align-items:center;
-}
-.hero-slideshow{ position:absolute; inset:0; z-index:0; }
-.hero-slide{
-  position:absolute; inset:0;
-  background-size:cover; background-position:center;
-  opacity:0;
-  animation: heroFade 30s infinite;
-  will-change:opacity, transform;
-}
-.hero-slide{ animation-name: heroFade, heroKen; animation-timing-function: ease-in-out, linear; }
-.hero-slide:nth-child(1){ background:linear-gradient(160deg,#0B1E33 0%,#1a3352 45%,#3d2f14 100%); animation-delay:0s, 0s; }
-.hero-slide:nth-child(2){ background:linear-gradient(160deg,#0B1E33 0%,#10273f 50%,#0F4C3A 100%); animation-delay:6s, 0s; }
-.hero-slide:nth-child(3){ background:linear-gradient(160deg,#1a1030 0%,#0B1E33 45%,#4a2a12 100%); animation-delay:12s, 0s; }
-.hero-slide:nth-child(4){ background:linear-gradient(160deg,#0B1E33 0%,#2b1f3d 50%,#0B1E33 100%); animation-delay:18s, 0s; }
-.hero-slide:nth-child(5){ background:linear-gradient(160deg,#241608 0%,#0B1E33 55%,#10273f 100%); animation-delay:24s, 0s; }
-.hero-slide svg{ position:absolute; inset:0; width:100%; height:100%; }
-@keyframes heroFade{
-  0%{ opacity:0; }
-  4%{ opacity:1; }
-  20%{ opacity:1; }
-  27%{ opacity:0; }
-  100%{ opacity:0; }
-}
-@keyframes heroKen{
-  0%{ transform:scale(1.06); }
-  100%{ transform:scale(1.16); }
-}
-.hero-overlay{
-  position:absolute; inset:0; z-index:1;
-  background:
-    linear-gradient(180deg, rgba(11,30,51,0.80) 0%, rgba(11,30,51,0.72) 45%, rgba(11,30,51,0.92) 100%),
-    linear-gradient(90deg, rgba(11,30,51,0.55) 0%, rgba(11,30,51,0.15) 60%);
-}
-.hero::after{
-  content:"";
-  position:absolute; inset-inline-end:-10%; bottom:-30%;
-  width:600px; height:600px; border-radius:50%;
-  background:radial-gradient(circle, rgba(201,162,39,0.18), transparent 70%);
-  pointer-events:none; z-index:1;
-}
-.hero .container{ position:relative; z-index:2; }
-.hero-eyebrow{
-  color:var(--gold-light); font-family:var(--font-mono); font-size:12.5px;
-  letter-spacing:0.12em; text-transform:uppercase; margin-bottom:18px; display:block;
-}
-.hero h1{ color:var(--white); font-size:48px; max-width:680px; line-height:1.16; text-shadow:0 2px 20px rgba(0,0,0,0.35); }
-.hero p.lede{ color:rgba(247,245,240,0.88); font-size:17.5px; max-width:540px; margin-top:18px; text-shadow:0 1px 12px rgba(0,0,0,0.3); }
-.hero-ctas{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
-.hero-stats{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(201,162,39,0.25);
-  margin-top:64px; border:1px solid rgba(201,162,39,0.25); backdrop-filter:blur(2px);
-}
-.hero-stat{ background:rgba(11,30,51,0.75); padding:20px 18px; text-align:center; }
-.hero-stat .num{ font-family:var(--font-mono); color:var(--gold); font-size:26px; font-weight:600; }
-.hero-stat .lbl{ color:rgba(247,245,240,0.7); font-size:12px; margin-top:6px; letter-spacing:0.02em; }
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 10px 50px;
+            box-shadow: 0 2px 30px rgba(212, 175, 55, 0.1);
+        }
 
-@media (prefers-reduced-motion: reduce){
-  .hero-slide{ animation:none !important; opacity:0.55 !important; }
-  .hero-slide:nth-child(1){ opacity:1 !important; }
-}
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
 
-@media (max-width:700px){
-  .hero h1{ font-size:32px; }
-  .hero-stats{ grid-template-columns:repeat(2,1fr); }
-}
+        .logo span {
+            color: var(--white);
+            font-weight: 300;
+        }
 
-/* ============ SECTIONS ============ */
-section.block{ padding-block:76px; }
-.section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:40px; flex-wrap:wrap; }
-.section-head .eyebrow{ color:var(--gold); font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:10px; }
-.section-head h2{ font-size:32px; }
-.section-head p{ color:var(--steel); max-width:480px; margin-top:10px; font-size:15px; }
-.band-navy{ background:var(--ink-navy); color:var(--pearl); }
-.band-navy h2, .band-navy h3{ color:var(--pearl); }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            list-style: none;
+        }
 
-/* ============ CAR ICON (shared SVG glyph) ============ */
-.car-art{
-  aspect-ratio:16/10; border-radius:4px; position:relative; overflow:hidden;
-  background:linear-gradient(135deg, var(--ink-navy) 0%, var(--ink-navy-2) 60%, #1a3a5c 100%);
-  display:flex; align-items:center; justify-content:center;
-}
-.car-art::before{
-  content:""; position:absolute; inset:0;
-  background:repeating-linear-gradient(90deg, rgba(201,162,39,0.06) 0 1px, transparent 1px 28px);
-}
-.car-art svg{ width:62%; position:relative; z-index:1; }
-.car-art .plate{
-  position:absolute; bottom:10px; inset-inline-end:10px; z-index:1;
-  font-family:var(--font-mono); font-size:10px; background:var(--gold); color:var(--ink-navy);
-  padding:2px 8px; border-radius:2px; font-weight:600; letter-spacing:0.05em;
-}
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
 
-/* ============ CAR CARD ============ */
-.grid-cars{ display:grid; grid-template-columns:repeat(auto-fill, minmax(290px,1fr)); gap:26px; }
-.car-card{
-  background:var(--white); border:1px solid var(--line); border-radius:5px; overflow:hidden;
-  transition:transform 0.2s ease, box-shadow 0.2s ease; display:flex; flex-direction:column;
-}
-.car-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
-.car-card-body{ padding:20px; display:flex; flex-direction:column; gap:12px; flex:1; }
-.car-card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
-.car-card-title h3{ font-size:19px; }
-.car-card-title .yr{ color:var(--steel); font-size:13px; font-family:var(--font-mono); margin-top:3px; }
-.car-specs-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:var(--steel); font-family:var(--font-mono); }
-.car-specs-row span{ display:flex; align-items:center; gap:5px; }
-.car-card-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px; border-top:1px solid var(--line); }
-.price{ font-family:var(--font-mono); color:var(--ink-navy); font-weight:600; font-size:16.5px; }
-.price .unit{ color:var(--steel); font-size:12px; font-weight:400; }
-.tag{ display:inline-block; font-size:11px; font-family:var(--font-mono); padding:3px 9px; border-radius:12px; letter-spacing:0.03em; font-weight:600;}
-.tag-rent{ background:rgba(201,162,39,0.15); color:#8a6e0f; }
-.tag-sale{ background:rgba(15,76,58,0.12); color:var(--emerald); }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
 
-/* ============ LISTINGS PAGE / FILTERS ============ */
-.listings-layout{ display:grid; grid-template-columns:260px 1fr; gap:36px; align-items:flex-start; }
-.filters{ background:var(--white); border:1px solid var(--line); border-radius:5px; padding:22px; position:sticky; top:100px; }
-.filters h4{ font-size:15px; margin-bottom:16px; }
-.filter-group{ margin-bottom:22px; }
-.filter-group label.grp-label{ display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--steel); margin-bottom:10px; font-weight:600; }
-.filter-option{ display:flex; align-items:center; gap:8px; margin-bottom:9px; font-size:14px; }
-.filter-option input{ accent-color:var(--gold); }
-select, input[type=text], input[type=email], input[type=tel], textarea{
-  width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:3px; font-size:14px;
-  background:var(--white); color:var(--charcoal); font-family:inherit;
-}
-select:focus, input:focus, textarea:focus{ border-color:var(--gold); }
-.results-bar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
-.results-bar .count{ font-size:14px; color:var(--steel); }
-.empty-state{ padding:60px 20px; text-align:center; color:var(--steel); border:1px dashed var(--line); border-radius:5px; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
 
-@media (max-width:880px){
-  .listings-layout{ grid-template-columns:1fr; }
-  .filters{ position:static; }
-}
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-/* ============ TRUST / ABOUT ============ */
-.trust-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
-.trust-card{ text-align:center; padding:28px 16px; }
-.trust-card h4{ font-size:17px; margin:16px 0 8px; }
-.trust-card p{ color:var(--steel); font-size:14px; }
-.trust-card .seal{ margin-inline:auto; }
-@media (max-width:760px){ .trust-grid{ grid-template-columns:1fr; } }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-.about-hero{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
-.about-hero .car-art{ aspect-ratio:4/3; }
-@media (max-width:820px){ .about-hero{ grid-template-columns:1fr; } }
-.info-lines{ margin-top:20px; display:flex; flex-direction:column; gap:12px; }
-.info-line{ display:flex; gap:12px; font-size:14.5px; align-items:flex-start; }
-.info-line .ic{ color:var(--gold); font-family:var(--font-mono); flex-shrink:0; width:20px; }
+        .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
 
-/* ============ CAR DETAIL ============ */
-.detail-layout{ display:grid; grid-template-columns:1.3fr 1fr; gap:44px; align-items:flex-start; }
-.detail-gallery .car-art{ aspect-ratio:4/3; }
-.thumb-row{ display:flex; gap:10px; margin-top:12px; }
-.thumb{ width:64px; height:48px; border-radius:3px; border:2px solid transparent; cursor:pointer; }
-.thumb.active{ border-color:var(--gold); }
-.detail-panel{ background:var(--white); border:1px solid var(--line); border-radius:5px; padding:26px; position:sticky; top:100px; }
-.detail-title{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
-.detail-price{ font-family:var(--font-mono); font-size:28px; color:var(--ink-navy); font-weight:600; margin-top:14px; }
-.detail-price .unit{ font-size:14px; color:var(--steel); font-weight:400; }
-.spec-table{ width:100%; border-collapse:collapse; margin-top:22px; font-size:13.5px; }
-.spec-table tr{ border-bottom:1px solid var(--line); }
-.spec-table td{ padding:10px 0; }
-.spec-table td:first-child{ color:var(--steel); }
-.spec-table td:last-child{ text-align:end; font-family:var(--font-mono); font-weight:600; color:var(--ink-navy); }
-.detail-desc{ margin-top:26px; color:var(--charcoal); font-size:14.5px; }
-@media (max-width:900px){ .detail-layout{ grid-template-columns:1fr; } .detail-panel{ position:static; } }
+        .lang-toggle:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
 
-/* ============ CONTACT ============ */
-.contact-layout{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
-.contact-form{ display:flex; flex-direction:column; gap:16px; }
-.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--ink-navy); }
-.contact-side .info-lines{ margin-top:26px; }
-.contact-map{
-  margin-top:28px; aspect-ratio:16/10; border-radius:5px;
-  background:
-    linear-gradient(160deg, var(--ink-navy), var(--ink-navy-2)),
-    repeating-linear-gradient(45deg, rgba(201,162,39,0.06) 0 2px, transparent 2px 22px);
-  display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-family:var(--font-mono); font-size:13px; text-align:center; padding:20px;
-  border:1px solid rgba(201,162,39,0.25);
-}
-.form-note{ font-size:12.5px; color:var(--steel); margin-top:2px; }
-.form-success{ display:none; background:rgba(15,76,58,0.1); border:1px solid var(--emerald); color:var(--emerald); padding:14px 16px; border-radius:4px; font-size:14px; margin-top:6px; }
-.form-success.show{ display:block; }
-@media (max-width:820px){ .contact-layout{ grid-template-columns:1fr; } .form-row{ grid-template-columns:1fr; } }
+        .cta-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
 
-/* ============ FOOTER ============ */
-footer{ background:var(--ink-navy); color:rgba(247,245,240,0.75); padding-block:50px 26px; }
-.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; }
-.footer-grid h5{ color:var(--gold-light); font-size:13px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px; font-family:var(--font-body-en); font-weight:600; }
-html[lang="ar"] .footer-grid h5{ font-family:var(--font-body-ar); }
-.footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:13.5px; }
-.footer-grid ul a:hover{ color:var(--gold-light); }
-.footer-bottom{ border-top:1px solid rgba(255,255,255,0.1); margin-top:36px; padding-top:20px; font-size:12.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; color:rgba(247,245,240,0.5); }
-@media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
 
-/* ============ MISC ============ */
-.page{ display:none; }
-.page.active{ display:block; }
-.reveal{ opacity:0; transform:translateY(16px); transition:opacity 0.5s ease, transform 0.5s ease; }
-.reveal.in{ opacity:1; transform:translateY(0); }
-.page-wrap{ padding-block:36px 76px; }
-.breadcrumb{ font-size:13px; color:var(--steel); margin-bottom:24px; }
-.breadcrumb a:hover{ color:var(--gold); }
-.related-title{ margin-top:60px; }
-</style>
+        .support-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .support-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .support-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (max-width: 576px) {
+            .support-btn {
+                display: none !important;
+            }
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            transition: right 0.5s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+
+        #hero-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-title span {
+            color: var(--gold);
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 40px;
+            border: 1px solid var(--white);
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator div {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-indicator div::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scrollDown {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 25px; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Quick Search Section */
+        .quick-search {
+            position: relative;
+            z-index: 10;
+            margin-top: -60px;
+            padding: 0 50px;
+        }
+
+        .search-box {
+            background: var(--navy);
+            border-radius: 12px;
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            flex-wrap: wrap;
+        }
+
+        .search-box .search-tabs {
+            display: flex;
+            gap: 0;
+            margin-right: 20px;
+        }
+
+        .search-tab {
+            padding: 12px 25px;
+            background: transparent;
+            border: 1px solid var(--charcoal);
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .search-tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        .search-tab.active {
+            background: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+        }
+
+        .search-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .search-field label {
+            display: block;
+            font-size: 11px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .search-field select,
+        .search-field input {
+            width: 100%;
+            padding: 10px 15px;
+            background: var(--charcoal);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-field select:focus,
+        .search-field input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            padding: 14px 35px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 50px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Featured Cars */
+        .featured-cars {
+            background: var(--dark-blue);
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background: var(--navy);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .car-image {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .car-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(transparent, var(--navy));
+        }
+
+        .car-info {
+            padding: 25px;
+        }
+
+        .car-category {
+            font-size: 11px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .car-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .car-specs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .car-spec {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .car-spec svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--gold);
+        }
+
+        .car-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .price small {
+            font-size: 12px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .car-actions button {
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-rent {
+            background: transparent;
+            border: 1px solid var(--gold) !important;
+            color: var(--gold);
+        }
+
+        .btn-rent:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn-buy {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn-buy:hover {
+            background: var(--gold-light);
+        }
+
+        /* Rental Section */
+        .rental-section {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--dark-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rental-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .rental-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .rental-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .rental-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .rental-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rental-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--dark);
+        }
+
+        .rental-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .rental-card p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .rental-card .rental-price {
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .rental-card .rental-price small {
+            font-size: 13px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        /* Services */
+        .services-section {
+            background: var(--charcoal);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            padding: 40px 30px;
+            border-radius: 12px;
+            background: var(--navy);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .service-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--gold);
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            background: var(--dark);
+            position: relative;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--dark-blue);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-item {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .testimonial-item.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .testimonial-text {
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--white);
+            margin-bottom: 30px;
+        }
+
+        .testimonial-author {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .testimonial-role {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .testimonial-dots {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--charcoal);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background: var(--gold);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--charcoal);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 18px;
+            background: var(--navy);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: var(--white);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+        }
+
+        .contact-details h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .map-container {
+            margin-top: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+            background: var(--navy);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 60px 50px 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--charcoal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .social-link:hover svg {
+            fill: var(--dark);
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 998;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-float svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        /* Scroll to Top Float */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 85px;
+            width: 45px;
+            height: 45px;
+            background: var(--navy);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 998;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .scroll-top-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+            transition: fill 0.3s ease;
+        }
+
+        .scroll-top-btn:hover svg {
+            fill: var(--dark);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--navy);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+
+            section {
+                padding: 80px 30px;
+            }
+
+            .quick-search {
+                padding: 0 30px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .quick-search {
+                padding: 0 20px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .search-box .search-tabs {
+                margin-right: 0;
+                width: 100%;
+            }
+
+            .search-tab {
+                flex: 1;
+                text-align: center;
+            }
+
+            .search-field {
+                width: 100%;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Animations on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RTL adjustments */
+        body.ar .nav-links a::after {
+            left: auto;
+            right: 0;
+        }
+
+        body.ar .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+
+        body.ar .car-badge {
+            left: auto;
+            right: 15px;
+        }
+
+        body.ar .whatsapp-float {
+            right: auto;
+            left: 25px;
+        }
+
+        body.ar .scroll-top-btn {
+            right: auto;
+            left: 85px;
+        }
+    </style>
 </head>
 <body>
-
-<!-- ===================== HEADER ===================== -->
-<header>
-  <div class="header-top">
-    <div class="container">
-      <div class="header-top-item" data-i18n="topbar.hours">Sat–Thu, 9:00 AM – 9:00 PM</div>
-      <div class="header-top-item">📞 +971 4 123 4567 &nbsp;•&nbsp; <span data-i18n="topbar.loc">Sheikh Zayed Road, Dubai, UAE</span></div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
     </div>
-  </div>
-  <div class="header-main">
-    <div class="container">
-      <a href="#/" class="brand" data-route="/">
-        <span class="brand-mark">M</span>
-        <span class="brand-name">
-          <span class="en">AL MAJD MOTORS</span>
-          <span class="ar">المجد للسيارات</span>
-        </span>
-      </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
-      <nav class="main-nav" id="mainNav">
-        <a href="#/" data-route="/" data-i18n="nav.home">Home</a>
-        <a href="#/listings" data-route="/listings" data-i18n="nav.listings">Browse Cars</a>
-        <a href="#/about" data-route="/about" data-i18n="nav.about">About Us</a>
-        <a href="#/contact" data-route="/contact" data-i18n="nav.contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button class="lang-toggle" id="langToggle">
-          <span id="langToggleLabel">العربية</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
-<div class="nav-scrim" id="navScrim"></div>
 
-<!-- ===================== HOME ===================== -->
-<main id="app">
-<section class="page active" data-page="/">
-
-  <div class="hero">
-    <div class="hero-slideshow" aria-hidden="true">
-      <div class="hero-slide">
-        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 520 Q400 460 800 500 T1600 480 V700 H0 Z" fill="#C9A227" opacity="0.10"/>
-          <path d="M0 560 Q450 500 900 550 T1600 540 V700 H0 Z" fill="#C9A227" opacity="0.16"/>
-          <g transform="translate(300,470)" opacity="0.9">
-            <path d="M0 90 L40 90 L55 60 Q65 44 90 44 L260 44 Q285 44 300 60 L340 88 L420 92 Q432 93 432 104 L432 112 Q432 118 424 118 L400 118 M60 118 L20 118 Q10 118 10 108 L10 96 Q10 90 20 88 Z" fill="none" stroke="#C9A227" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="70" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="360" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-          </g>
-        </svg>
-      </div>
-      <div class="hero-slide">
-        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1180" y="120" width="26" height="420" fill="#C9A227" opacity="0.18"/>
-          <rect x="1230" y="220" width="18" height="320" fill="#C9A227" opacity="0.14"/>
-          <rect x="1130" y="260" width="20" height="280" fill="#C9A227" opacity="0.14"/>
-          <path d="M0 560 Q450 520 900 550 T1600 545 V700 H0 Z" fill="#C9A227" opacity="0.14"/>
-          <g transform="translate(220,460)" opacity="0.9">
-            <path d="M0 90 L40 90 L55 60 Q65 44 90 44 L260 44 Q285 44 300 60 L340 88 L420 92 Q432 93 432 104 L432 112 Q432 118 424 118 L400 118 M60 118 L20 118 Q10 118 10 108 L10 96 Q10 90 20 88 Z" fill="none" stroke="#C9A227" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="70" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="360" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-          </g>
-        </svg>
-      </div>
-      <div class="hero-slide">
-        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="1300" cy="220" r="90" fill="#C9A227" opacity="0.10"/>
-          <path d="M0 540 Q400 480 800 520 T1600 500 V700 H0 Z" fill="#C9A227" opacity="0.12"/>
-          <g transform="translate(500,450)" opacity="0.9">
-            <path d="M0 90 L40 90 L55 60 Q65 44 90 44 L260 44 Q285 44 300 60 L340 88 L420 92 Q432 93 432 104 L432 112 Q432 118 424 118 L400 118 M60 118 L20 118 Q10 118 10 108 L10 96 Q10 90 20 88 Z" fill="none" stroke="#C9A227" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="70" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="360" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-          </g>
-        </svg>
-      </div>
-      <div class="hero-slide">
-        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <rect x="900" y="180" width="22" height="360" fill="#C9A227" opacity="0.16"/>
-          <rect x="950" y="260" width="16" height="280" fill="#C9A227" opacity="0.12"/>
-          <path d="M0 550 Q450 500 900 540 T1600 530 V700 H0 Z" fill="#C9A227" opacity="0.13"/>
-          <g transform="translate(150,455)" opacity="0.9">
-            <path d="M0 90 L40 90 L55 60 Q65 44 90 44 L260 44 Q285 44 300 60 L340 88 L420 92 Q432 93 432 104 L432 112 Q432 118 424 118 L400 118 M60 118 L20 118 Q10 118 10 108 L10 96 Q10 90 20 88 Z" fill="none" stroke="#C9A227" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="70" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="360" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-          </g>
-        </svg>
-      </div>
-      <div class="hero-slide">
-        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="250" cy="180" r="70" fill="#C9A227" opacity="0.12"/>
-          <path d="M0 530 Q420 470 840 515 T1600 495 V700 H0 Z" fill="#C9A227" opacity="0.15"/>
-          <g transform="translate(650,465)" opacity="0.9">
-            <path d="M0 90 L40 90 L55 60 Q65 44 90 44 L260 44 Q285 44 300 60 L340 88 L420 92 Q432 93 432 104 L432 112 Q432 118 424 118 L400 118 M60 118 L20 118 Q10 118 10 108 L10 96 Q10 90 20 88 Z" fill="none" stroke="#C9A227" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="70" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="360" cy="118" r="20" fill="#0B1E33" stroke="#C9A227" stroke-width="3"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="container">
-      <span class="hero-eyebrow" data-i18n="hero.eyebrow">RTA Registered • Est. 2009 • Dubai, UAE</span>
-      <h1 data-i18n="hero.title">Rent or own your next car, the trusted way.</h1>
-      <p class="lede" data-i18n="hero.lede">From daily rentals to outright ownership, Al Majd Motors brings a certified fleet, transparent pricing, and a showroom built on three generations of trust.</p>
-      <div class="hero-ctas">
-        <a href="#/listings?type=rent" class="btn btn-gold" data-i18n="hero.cta1">Browse cars to rent</a>
-        <a href="#/listings?type=sale" class="btn btn-outline" data-i18n="hero.cta2">Browse cars to buy</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="num">15+</div><div class="lbl" data-i18n="hero.stat1">Years in the UAE</div></div>
-        <div class="hero-stat"><div class="num">500+</div><div class="lbl" data-i18n="hero.stat2">Cars in fleet</div></div>
-        <div class="hero-stat"><div class="num">30+</div><div class="lbl" data-i18n="hero.stat3">Brands available</div></div>
-        <div class="hero-stat"><div class="num">24/7</div><div class="lbl" data-i18n="hero.stat4">Roadside support</div></div>
-      </div>
-    </div>
-  </div>
-
-  <section class="block">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow" data-i18n="featured.eyebrow">This week's selection</span>
-          <h2 data-i18n="featured.title">Featured vehicles</h2>
-          <p data-i18n="featured.sub">A rotating edit from our showroom floor — available for rent or sale today.</p>
-        </div>
-        <a href="#/listings" class="btn btn-navy" data-i18n="featured.viewall">View all cars</a>
-      </div>
-      <div class="grid-cars" id="featuredGrid"></div>
-    </div>
-  </section>
-
-  <section class="block band-navy">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow" style="color:var(--gold-light)" data-i18n="trust.eyebrow">Why Al Majd</span>
-          <h2 data-i18n="trust.title">A certificate of trust with every key handover</h2>
-        </div>
-      </div>
-      <div class="trust-grid">
-        <div class="trust-card">
-          <div class="seal"><span class="seal-label" data-i18n="trust.seal1short">RTA CERTIFIED</span></div>
-          <h4 data-i18n="trust.card1title">RTA-registered dealer</h4>
-          <p data-i18n="trust.card1body">Every rental and sale is processed through fully compliant, RTA-registered channels.</p>
-        </div>
-        <div class="trust-card">
-          <div class="seal sale"><span class="seal-label" data-i18n="trust.seal2short">FULL COVER</span></div>
-          <h4 data-i18n="trust.card2title">Comprehensive insurance</h4>
-          <p data-i18n="trust.card2body">Every vehicle on our lot, rented or sold, is covered by comprehensive UAE insurance.</p>
-        </div>
-        <div class="trust-card">
-          <div class="seal"><span class="seal-label" data-i18n="trust.seal3short">INSPECTED</span></div>
-          <h4 data-i18n="trust.card3title">200-point inspection</h4>
-          <p data-i18n="trust.card3body">Each car passes a rigorous inspection before it ever reaches our showroom floor.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="container">
-      <div class="section-head" style="margin-bottom:28px;">
-        <div>
-          <span class="eyebrow" data-i18n="cta.eyebrow">Get started</span>
-          <h2 data-i18n="cta.title">Have a car in mind?</h2>
-          <p data-i18n="cta.sub">Tell us what you're looking for and our team will reach out within the hour.</p>
-        </div>
-        <a href="#/contact" class="btn btn-gold" data-i18n="cta.button">Contact our team</a>
-      </div>
-    </div>
-  </section>
-
-</section>
-
-<!-- ===================== LISTINGS ===================== -->
-<section class="page" data-page="/listings">
-  <div class="container page-wrap">
-    <div class="breadcrumb"><a href="#/" data-i18n="nav.home">Home</a> / <span data-i18n="nav.listings">Browse Cars</span></div>
-    <div class="section-head" style="margin-bottom:30px;">
-      <div>
-        <span class="eyebrow" data-i18n="listings.eyebrow">Our fleet</span>
-        <h2 data-i18n="listings.title">Cars for rent &amp; sale</h2>
-      </div>
-    </div>
-    <div class="listings-layout">
-      <aside class="filters">
-        <h4 data-i18n="filters.title">Filter results</h4>
-        <div class="filter-group">
-          <span class="grp-label" data-i18n="filters.type">Listing type</span>
-          <label class="filter-option"><input type="radio" name="f-type" value="all" checked> <span data-i18n="filters.all">All</span></label>
-          <label class="filter-option"><input type="radio" name="f-type" value="rent"> <span data-i18n="filters.rent">For rent</span></label>
-          <label class="filter-option"><input type="radio" name="f-type" value="sale"> <span data-i18n="filters.sale">For sale</span></label>
-        </div>
-        <div class="filter-group">
-          <span class="grp-label" data-i18n="filters.brand">Brand</span>
-          <select id="f-brand"><option value="all" data-i18n="filters.allBrands">All brands</option></select>
-        </div>
-        <div class="filter-group">
-          <span class="grp-label" data-i18n="filters.body">Body type</span>
-          <select id="f-body">
-            <option value="all" data-i18n="filters.allBody">All types</option>
-            <option value="suv" data-i18n="body.suv">SUV</option>
-            <option value="sedan" data-i18n="body.sedan">Sedan</option>
-            <option value="sports" data-i18n="body.sports">Sports</option>
-            <option value="pickup" data-i18n="body.pickup">Pickup</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <span class="grp-label" data-i18n="filters.price">Max price (AED)</span>
-          <select id="f-price">
-            <option value="all" data-i18n="filters.anyPrice">Any price</option>
-            <option value="1000">≤ 1,000</option>
-            <option value="150000">≤ 150,000</option>
-            <option value="350000">≤ 350,000</option>
-            <option value="9999999" data-i18n="filters.noLimit">No limit</option>
-          </select>
-        </div>
-        <button class="btn btn-outline btn-block" id="resetFilters" style="border-color:var(--line); color:var(--ink-navy);" data-i18n="filters.reset">Reset filters</button>
-      </aside>
-      <div>
-        <div class="results-bar">
-          <span class="count" id="resultsCount"></span>
-        </div>
-        <div class="grid-cars" id="listingsGrid"></div>
-        <div class="empty-state" id="emptyState" style="display:none;" data-i18n="filters.empty">No cars match these filters. Try widening your search.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CAR DETAIL ===================== -->
-<section class="page" data-page="/car">
-  <div class="container page-wrap" id="detailContainer"></div>
-</section>
-
-<!-- ===================== ABOUT ===================== -->
-<section class="page" data-page="/about">
-  <div class="container" style="padding-top:36px;">
-    <div class="breadcrumb"><a href="#/" data-i18n="nav.home">Home</a> / <span data-i18n="nav.about">About Us</span></div>
-    <div class="about-hero">
-      <div>
-        <span class="eyebrow" data-i18n="about.eyebrow">Our story</span>
-        <h2 style="font-size:32px; margin-top:10px;" data-i18n="about.title">Three generations on Sheikh Zayed Road</h2>
-        <p style="color:var(--steel); margin-top:16px; font-size:15px;" data-i18n="about.body1">Al Majd Motors opened its doors in 2009 with a simple promise: every car that leaves our lot, whether rented for a weekend or bought outright, should be one you can trust completely. Today we serve residents, tourists, and businesses across Dubai and Abu Dhabi.</p>
-        <p style="color:var(--steel); margin-top:12px; font-size:15px;" data-i18n="about.body2">Our showroom holds a curated fleet of over 500 vehicles, from everyday sedans to statement SUVs, each one inspected, insured, and registered in full compliance with RTA regulations.</p>
-        <div class="info-lines">
-          <div class="info-line"><span class="ic">◆</span><span data-i18n="about.point1">Founded in 2009, family-owned and operated</span></div>
-          <div class="info-line"><span class="ic">◆</span><span data-i18n="about.point2">Two showrooms: Dubai (Sheikh Zayed Road) &amp; Abu Dhabi (Al Falah St)</span></div>
-          <div class="info-line"><span class="ic">◆</span><span data-i18n="about.point3">Arabic &amp; English-speaking sales and support staff</span></div>
-        </div>
-      </div>
-      <div class="car-art">
-        <svg viewBox="0 0 200 100" fill="none"><g id="carGlyph"></g></svg>
-        <div class="plate">DUBAI • UAE</div>
-      </div>
-    </div>
-  </div>
-
-  <section class="block">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow" data-i18n="about.whyEyebrow">The Al Majd promise</span>
-          <h2 data-i18n="about.whyTitle">Why choose us</h2>
-        </div>
-      </div>
-      <div class="trust-grid">
-        <div class="trust-card">
-          <div class="seal"><span class="seal-label" data-i18n="about.why1short">TRANSPARENT</span></div>
-          <h4 data-i18n="about.why1title">No hidden fees</h4>
-          <p data-i18n="about.why1body">Every quote, rental or sale, is itemized in full before you sign anything.</p>
-        </div>
-        <div class="trust-card">
-          <div class="seal sale"><span class="seal-label" data-i18n="about.why2short">FLEXIBLE</span></div>
-          <h4 data-i18n="about.why2title">Flexible terms</h4>
-          <p data-i18n="about.why2body">Daily, weekly, and monthly rentals, plus financing options on every car for sale.</p>
-        </div>
-        <div class="trust-card">
-          <div class="seal"><span class="seal-label" data-i18n="about.why3short">BILINGUAL</span></div>
-          <h4 data-i18n="about.why3title">Bilingual service</h4>
-          <p data-i18n="about.why3body">Our team serves customers fluently in both Arabic and English, in person and online.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block band-navy">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow" style="color:var(--gold-light)" data-i18n="about.visitEyebrow">Visit the showroom</span>
-          <h2 data-i18n="about.visitTitle">Come see the fleet in person</h2>
-        </div>
-      </div>
-      <div class="info-lines" style="color:rgba(247,245,240,0.85);">
-        <div class="info-line"><span class="ic">📍</span><span data-i18n="about.addr">Sheikh Zayed Road, Al Quoz, Dubai, United Arab Emirates</span></div>
-        <div class="info-line"><span class="ic">🕐</span><span data-i18n="topbar.hours">Sat–Thu, 9:00 AM – 9:00 PM</span></div>
-        <div class="info-line"><span class="ic">📞</span><span>+971 4 123 4567</span></div>
-        <div class="info-line"><span class="ic">✉️</span><span>info@almajdmotors.ae</span></div>
-      </div>
-    </div>
-  </section>
-</section>
-
-<!-- ===================== CONTACT ===================== -->
-<section class="page" data-page="/contact">
-  <div class="container page-wrap">
-    <div class="breadcrumb"><a href="#/" data-i18n="nav.home">Home</a> / <span data-i18n="nav.contact">Contact</span></div>
-    <div class="section-head" style="margin-bottom:34px;">
-      <div>
-        <span class="eyebrow" data-i18n="contact.eyebrow">Get in touch</span>
-        <h2 data-i18n="contact.title">Let's find your next car</h2>
-        <p data-i18n="contact.sub">Fill in the form and our team will contact you within one business hour.</p>
-      </div>
-    </div>
-    <div class="contact-layout">
-      <form class="contact-form" id="contactForm">
-        <div class="form-row">
-          <div>
-            <label for="cf-name" data-i18n="contact.name">Full name</label>
-            <input type="text" id="cf-name" required>
-          </div>
-          <div>
-            <label for="cf-phone" data-i18n="contact.phone">Phone number</label>
-            <input type="tel" id="cf-phone" required placeholder="+971 5X XXX XXXX">
-          </div>
-        </div>
-        <div>
-          <label for="cf-email" data-i18n="contact.email">Email address</label>
-          <input type="email" id="cf-email" required>
-        </div>
-        <div>
-          <label for="cf-car" data-i18n="contact.carInterest">Car of interest</label>
-          <select id="cf-car"><option value="" data-i18n="contact.carAny">General inquiry</option></select>
-        </div>
-        <div>
-          <label for="cf-message" data-i18n="contact.message">Message</label>
-          <textarea id="cf-message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-gold btn-block" data-i18n="contact.send">Send inquiry</button>
-        <div class="form-success" id="formSuccess" data-i18n="contact.success">Thank you — your inquiry has been received. Our team will call you shortly.</div>
-      </form>
-      <div class="contact-side">
-        <h4 style="font-size:15px; margin-bottom:6px; color:var(--ink-navy); font-weight:700;" data-i18n="contact.visitTitle">Showroom details</h4>
-        <div class="info-lines">
-          <div class="info-line"><span class="ic">📍</span><span data-i18n="about.addr">Sheikh Zayed Road, Al Quoz, Dubai, United Arab Emirates</span></div>
-          <div class="info-line"><span class="ic">🕐</span><span data-i18n="topbar.hours">Sat–Thu, 9:00 AM – 9:00 PM</span></div>
-          <div class="info-line"><span class="ic">📞</span><span>+971 4 123 4567</span></div>
-          <div class="info-line"><span class="ic">✉️</span><span>info@almajdmotors.ae</span></div>
-        </div>
-        <div class="contact-map" data-i18n="contact.mapNote">Showroom location — Sheikh Zayed Road, Al Quoz, Dubai</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- ===================== FOOTER ===================== -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <span class="brand-name"><span class="en" style="color:var(--gold-light); font-size:17px;">AL MAJD MOTORS</span></span>
-        <p style="margin-top:12px; font-size:13.5px; max-width:280px; color:rgba(247,245,240,0.6);" data-i18n="footer.tagline">Dubai's trusted showroom for renting and buying quality vehicles since 2009.</p>
-      </div>
-      <div>
-        <h5 data-i18n="footer.explore">Explore</h5>
-        <ul>
-          <li><a href="#/listings?type=rent" data-i18n="footer.rent">Rent a car</a></li>
-          <li><a href="#/listings?type=sale" data-i18n="footer.buy">Buy a car</a></li>
-          <li><a href="#/about" data-i18n="nav.about">About us</a></li>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">LUXE<span>DRIVE</span></a>
+        
+        <ul class="nav-links">
+            <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+            <li class="dropdown">
+                <a href="#buy" data-en="Buy Cars ▾" data-ar="شراء السيارات ▾">Buy Cars ▾</a>
+                <div class="dropdown-menu">
+                    <a href="#" data-en="Luxury Cars" data-ar="سيارات فاخرة">Luxury Cars</a>
+                    <a href="#" data-en="Sports Cars" data-ar="سيارات رياضية">Sports Cars</a>
+                    <a href="#" data-en="SUVs" data-ar="سيارات الدفع الرباعي">SUVs</a>
+                    <a href="#" data-en="Sedans" data-ar="سيدان">Sedans</a>
+                    <a href="#" data-en="Electric Cars" data-ar="سيارات كهربائية">Electric Cars</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#rent" data-en="Rent Cars ▾" data-ar="تأجير السيارات ▾">Rent Cars ▾</a>
+                <div class="dropdown-menu">
+                    <a href="#" data-en="Daily Rental" data-ar="إيجار يومي">Daily Rental</a>
+                    <a href="#" data-en="Weekly Rental" data-ar="إيجار أسبوعي">Weekly Rental</a>
+                    <a href="#" data-en="Monthly Rental" data-ar="إيجار شهري">Monthly Rental</a>
+                    <a href="#" data-en="Chauffeur Service" data-ar="خدمة سائق">Chauffeur Service</a>
+                    <a href="#" data-en="Airport Transfer" data-ar="خدمة المطار">Airport Transfer</a>
+                </div>
+            </li>
+            <li><a href="#services" data-en="Services" data-ar="الخدمات">Services</a></li>
+            <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+            <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
         </ul>
-      </div>
-      <div>
-        <h5 data-i18n="footer.company">Company</h5>
-        <ul>
-          <li><a href="#/contact" data-i18n="nav.contact">Contact</a></li>
-          <li><a href="#/about" data-i18n="footer.careers">Careers</a></li>
-          <li><a href="#/about" data-i18n="footer.terms">Terms &amp; conditions</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5 data-i18n="footer.contact">Reach us</h5>
-        <ul>
-          <li>+971 4 123 4567</li>
-          <li>info@almajdmotors.ae</li>
-          <li data-i18n="about.addr">Sheikh Zayed Road, Al Quoz, Dubai, United Arab Emirates</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span data-i18n="footer.copy">© 2026 Al Majd Motors. All rights reserved.</span>
-      <span data-i18n="footer.rta">RTA Registered Dealer — License No. DXB-4471</span>
-    </div>
-  </div>
-</footer>
 
-<script src="/js/app.js"></script>
+        <div class="nav-right">
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">العربية</button>
+            <a href="https://wa.me/971500000000" target="_blank" class="support-btn">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span data-en="Online Support" data-ar="الدعم المباشر">Online Support</span>
+            </a>
+            <a href="#contact" class="cta-btn" data-en="Book Now" data-ar="احجز الآن">Book Now</a>
+            <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" data-en="Home" data-ar="الرئيسية" onclick="toggleMobileMenu()">Home</a>
+        <a href="#buy" data-en="Buy Cars" data-ar="شراء السيارات" onclick="toggleMobileMenu()">Buy Cars</a>
+        <a href="#rent" data-en="Rent Cars" data-ar="تأجير السيارات" onclick="toggleMobileMenu()">Rent Cars</a>
+        <a href="#services" data-en="Services" data-ar="الخدمات" onclick="toggleMobileMenu()">Services</a>
+        <a href="#about" data-en="About" data-ar="من نحن" onclick="toggleMobileMenu()">About</a>
+        <a href="#contact" data-en="Contact" data-ar="اتصل بنا" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1563720223185-11003d516935?w=1920&q=80')"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1920&q=80')"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <canvas id="hero-3d"></canvas>
+        <div class="hero-content">
+            <p class="hero-subtitle" data-en="PREMIUM CAR SHOWROOM IN UAE" data-ar="صالة عرض سيارات فاخرة في الإمارات">PREMIUM CAR SHOWROOM IN UAE</p>
+            <h1 class="hero-title" data-en="Drive Your <span>Dream</span> Car Today" data-ar="قد سيارتك <span>الحلم</span> اليوم">Drive Your <span>Dream</span> Car Today</h1>
+            <p class="hero-desc" data-en="Experience luxury automotive excellence. Buy or rent the world's finest vehicles with unmatched service in the heart of UAE." data-ar="استمتع بتجربة التميز في عالم السيارات الفاخرة. اشترِ أو استأجر أفضل سيارات العالم مع خدمة لا مثيل لها في قلب الإمارات.">Experience luxury automotive excellence. Buy or rent the world's finest vehicles with unmatched service in the heart of UAE.</p>
+            <div class="hero-buttons">
+                <a href="#buy" class="btn-primary" data-en="Explore Cars" data-ar="استكشف السيارات">Explore Cars</a>
+                <a href="#rent" class="btn-secondary" data-en="Rent Now" data-ar="استأجر الآن">Rent Now</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div></div>
+        </div>
+    </section>
+
+    <!-- Quick Search -->
+    <div class="quick-search">
+        <div class="search-box reveal">
+            <div class="search-tabs">
+                <button class="search-tab active" data-en="Buy" data-ar="شراء">Buy</button>
+                <button class="search-tab" data-en="Rent" data-ar="تأجير">Rent</button>
+            </div>
+            <div class="search-field">
+                <label data-en="Brand" data-ar="العلامة التجارية">Brand</label>
+                <select>
+                    <option data-en="All Brands" data-ar="جميع العلامات">All Brands</option>
+                    <option>Mercedes-Benz</option>
+                    <option>BMW</option>
+                    <option>Audi</option>
+                    <option>Porsche</option>
+                    <option>Lamborghini</option>
+                    <option>Ferrari</option>
+                    <option>Rolls-Royce</option>
+                    <option>Bentley</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label data-en="Type" data-ar="النوع">Type</label>
+                <select>
+                    <option data-en="All Types" data-ar="جميع الأنواع">All Types</option>
+                    <option data-en="Luxury" data-ar="فاخرة">Luxury</option>
+                    <option data-en="Sports" data-ar="رياضية">Sports</option>
+                    <option data-en="SUV" data-ar="دفع رباعي">SUV</option>
+                    <option data-en="Sedan" data-ar="سيدان">Sedan</option>
+                    <option data-en="Electric" data-ar="كهربائية">Electric</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label data-en="Price Range" data-ar="نطاق السعر">Price Range</label>
+                <select>
+                    <option data-en="Any Price" data-ar="أي سعر">Any Price</option>
+                    <option>AED 50,000 - 100,000</option>
+                    <option>AED 100,000 - 300,000</option>
+                    <option>AED 300,000 - 500,000</option>
+                    <option>AED 500,000+</option>
+                </select>
+            </div>
+            <button class="search-btn" data-en="🔍 Search" data-ar="🔍 بحث">🔍 Search</button>
+        </div>
+    </div>
+
+    <!-- Featured Cars Section -->
+    <section class="featured-cars" id="buy">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="OUR COLLECTION" data-ar="مجموعتنا">OUR COLLECTION</p>
+            <h2 class="section-title" data-en="Featured Vehicles" data-ar="السيارات المميزة">Featured Vehicles</h2>
+            <p class="section-desc" data-en="Discover our handpicked selection of premium automobiles available for purchase or rent" data-ar="اكتشف مجموعتنا المختارة بعناية من السيارات الفاخرة المتاحة للشراء أو الإيجار">Discover our handpicked selection of premium automobiles available for purchase or rent</p>
+        </div>
+        <div class="cars-grid">
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="NEW" data-ar="جديد">NEW</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Luxury Sedan" data-ar="سيدان فاخرة">Luxury Sedan</p>
+                    <h3 class="car-name" data-en="Mercedes S-Class 2024" data-ar="مرسيدس S-Class 2024">Mercedes S-Class 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="Automatic" data-ar="أوتوماتيك">Automatic</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Petrol" data-ar="بنزين">Petrol</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="V8 Engine" data-ar="محرك V8">V8 Engine</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 585,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="POPULAR" data-ar="شائع">POPULAR</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Sports Car" data-ar="سيارة رياضية">Sports Car</p>
+                    <h3 class="car-name" data-en="BMW M8 Competition 2024" data-ar="BMW M8 Competition 2024">BMW M8 Competition 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="Automatic" data-ar="أوتوماتيك">Automatic</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Petrol" data-ar="بنزين">Petrol</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="V8 Twin Turbo" data-ar="V8 تيربو مزدوج">V8 Twin Turbo</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 720,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="EXCLUSIVE" data-ar="حصري">EXCLUSIVE</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Super Car" data-ar="سوبر كار">Super Car</p>
+                    <h3 class="car-name" data-en="Porsche 911 GT3 RS 2024" data-ar="بورشه 911 GT3 RS 2024">Porsche 911 GT3 RS 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="PDK" data-ar="PDK">PDK</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Petrol" data-ar="بنزين">Petrol</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="Flat-6 518HP" data-ar="مسطح-6 518 حصان">Flat-6 518HP</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 1,200,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="ELECTRIC" data-ar="كهربائية">ELECTRIC</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Electric SUV" data-ar="SUV كهربائية">Electric SUV</p>
+                    <h3 class="car-name" data-en="Range Rover Electric 2024" data-ar="رينج روفر كهربائية 2024">Range Rover Electric 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="Automatic" data-ar="أوتوماتيك">Automatic</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Electric" data-ar="كهربائية">Electric</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="550HP Dual Motor" data-ar="550 حصان محرك مزدوج">550HP Dual Motor</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 890,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="LUXURY" data-ar="فاخرة">LUXURY</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1631263307067-85403890772b?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Ultra Luxury" data-ar="فاخرة جداً">Ultra Luxury</p>
+                    <h3 class="car-name" data-en="Rolls-Royce Ghost 2024" data-ar="رولز رويس جوست 2024">Rolls-Royce Ghost 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="Automatic" data-ar="أوتوماتيك">Automatic</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Petrol" data-ar="بنزين">Petrol</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="V12 563HP" data-ar="V12 563 حصان">V12 563HP</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 2,100,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="car-card reveal">
+                <span class="car-badge" data-en="SUV" data-ar="دفع رباعي">SUV</span>
+                <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80')"></div>
+                <div class="car-info">
+                    <p class="car-category" data-en="Performance SUV" data-ar="SUV أداء عالي">Performance SUV</p>
+                    <h3 class="car-name" data-en="Lamborghini Urus 2024" data-ar="لامبورغيني أوروس 2024">Lamborghini Urus 2024</h3>
+                    <div class="car-specs">
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span data-en="Automatic" data-ar="أوتوماتيك">Automatic</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5z"/></svg>
+                            <span data-en="Petrol" data-ar="بنزين">Petrol</span>
+                        </span>
+                        <span class="car-spec">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                            <span data-en="V8 666HP" data-ar="V8 666 حصان">V8 666HP</span>
+                        </span>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">AED 1,450,000 <small data-en="/ or rent" data-ar="/ أو إيجار">/ or rent</small></div>
+                        <div class="car-actions">
+                            <button class="btn-rent" data-en="Rent" data-ar="إيجار">Rent</button>
+                            <button class="btn-buy" data-en="Buy" data-ar="شراء">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Section -->
+    <section class="rental-section" id="rent">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="FLEXIBLE RENTAL PLANS" data-ar="خطط تأجير مرنة">FLEXIBLE RENTAL PLANS</p>
+            <h2 class="section-title" data-en="Rent Your Perfect Ride" data-ar="استأجر سيارتك المثالية">Rent Your Perfect Ride</h2>
+            <p class="section-desc" data-en="Choose from daily, weekly, or monthly rental options with premium vehicles" data-ar="اختر من بين خيارات الإيجار اليومي أو الأسبوعي أو الشهري مع سيارات فاخرة">Choose from daily, weekly, or monthly rental options with premium vehicles</p>
+        </div>
+        <div class="rental-grid">
+            <div class="rental-card reveal">
+                <div class="rental-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <h3 data-en="Daily Rental" data-ar="إيجار يومي">Daily Rental</h3>
+                <p data-en="Perfect for a special occasion or business meeting. Drive luxury for a day." data-ar="مثالي لمناسبة خاصة أو اجتماع عمل. قد الفاخرة ليوم واحد.">Perfect for a special occasion or business meeting. Drive luxury for a day.</p>
+                <div class="rental-price">AED 500+ <small data-en="/day" data-ar="/يوم">/day</small></div>
+            </div>
+            <div class="rental-card reveal">
+                <div class="rental-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                </div>
+                <h3 data-en="Weekly Rental" data-ar="إيجار أسبوعي">Weekly Rental</h3>
+                <p data-en="Enjoy a week of luxury driving with our special weekly rates and benefits." data-ar="استمتع بأسبوع من القيادة الفاخرة مع أسعارنا ومزايانا الأسبوعية الخاصة.">Enjoy a week of luxury driving with our special weekly rates and benefits.</p>
+                <div class="rental-price">AED 3,000+ <small data-en="/week" data-ar="/أسبوع">/week</small></div>
+            </div>
+            <div class="rental-card reveal">
+                <div class="rental-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                </div>
+                <h3 data-en="Monthly Rental" data-ar="إيجار شهري">Monthly Rental</h3>
+                <p data-en="Long-term luxury at the best value. Insurance and maintenance included." data-ar="الفخامة طويلة الأجل بأفضل قيمة. التأمين والصيانة مشمولة.">Long-term luxury at the best value. Insurance and maintenance included.</p>
+                <div class="rental-price">AED 10,000+ <small data-en="/month" data-ar="/شهر">/month</small></div>
+            </div>
+            <div class="rental-card reveal">
+                <div class="rental-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <h3 data-en="Chauffeur Service" data-ar="خدمة سائق">Chauffeur Service</h3>
+                <p data-en="Professional chauffeurs for VIP experiences. Available 24/7 across UAE." data-ar="سائقون محترفون لتجارب VIP. متاح على مدار الساعة في جميع أنحاء الإمارات.">Professional chauffeurs for VIP experiences. Available 24/7 across UAE.</p>
+                <div class="rental-price">AED 800+ <small data-en="/day" data-ar="/يوم">/day</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="WHAT WE OFFER" data-ar="ما نقدمه">WHAT WE OFFER</p>
+            <h2 class="section-title" data-en="Our Premium Services" data-ar="خدماتنا المتميزة">Our Premium Services</h2>
+            <p class="section-desc" data-en="Comprehensive automotive solutions tailored for the discerning client" data-ar="حلول سيارات شاملة مصممة للعميل المميز">Comprehensive automotive solutions tailored for the discerning client</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                </div>
+                <h3 data-en="Car Sales" data-ar="بيع السيارات">Car Sales</h3>
+                <p data-en="New and certified pre-owned luxury vehicles with full warranty and inspection reports." data-ar="سيارات فاخرة جديدة ومستعملة معتمدة مع ضمان كامل وتقارير فحص.">New and certified pre-owned luxury vehicles with full warranty and inspection reports.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                </div>
+                <h3 data-en="Easy Financing" data-ar="تمويل سهل">Easy Financing</h3>
+                <p data-en="Flexible payment plans with competitive rates. Get pre-approved in minutes." data-ar="خطط دفع مرنة بأسعار تنافسية. احصل على موافقة مسبقة في دقائق.">Flexible payment plans with competitive rates. Get pre-approved in minutes.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+                </div>
+                <h3 data-en="Maintenance" data-ar="الصيانة">Maintenance</h3>
+                <p data-en="Expert technicians using genuine parts. Scheduled maintenance and emergency service." data-ar="فنيون خبراء يستخدمون قطع غيار أصلية. صيانة مجدولة وخدمة طوارئ.">Expert technicians using genuine parts. Scheduled maintenance and emergency service.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <h3 data-en="Insurance" data-ar="التأمين">Insurance</h3>
+                <p data-en="Comprehensive coverage plans from top UAE insurance providers at competitive rates." data-ar="خطط تغطية شاملة من أفضل شركات التأمين في الإمارات بأسعار تنافسية.">Comprehensive coverage plans from top UAE insurance providers at competitive rates.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <h3 data-en="Delivery Service" data-ar="خدمة التوصيل">Delivery Service</h3>
+                <p data-en="Free door-to-door delivery across UAE. Airport pickup and drop-off available." data-ar="توصيل مجاني من الباب إلى الباب في جميع أنحاء الإمارات. خدمة الاستلام والتوصيل من المطار.">Free door-to-door delivery across UAE. Airport pickup and drop-off available.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v3H5z"/></svg>
+                </div>
+                <h3 data-en="Trade-In" data-ar="استبدال">Trade-In</h3>
+                <p data-en="Get the best value for your current vehicle. Instant appraisal and fair market pricing." data-ar="احصل على أفضل قيمة لسيارتك الحالية. تقييم فوري وأسعار عادلة.">Get the best value for your current vehicle. Instant appraisal and fair market pricing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us" id="about">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="WHY LUXEDRIVE" data-ar="لماذا لوكس درايف">WHY LUXEDRIVE</p>
+            <h2 class="section-title" data-en="Trusted by Thousands" data-ar="موثوق من الآلاف">Trusted by Thousands</h2>
+        </div>
+        <div class="stats-row reveal">
+            <div class="stat-card">
+                <div class="stat-number" data-count="2500">0</div>
+                <div class="stat-label" data-en="Cars Sold" data-ar="سيارة مباعة">Cars Sold</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="5000">0</div>
+                <div class="stat-label" data-en="Happy Clients" data-ar="عميل سعيد">Happy Clients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="15">0</div>
+                <div class="stat-label" data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="50">0</div>
+                <div class="stat-label" data-en="Premium Brands" data-ar="علامة تجارية فاخرة">Premium Brands</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="CLIENT REVIEWS" data-ar="آراء العملاء">CLIENT REVIEWS</p>
+            <h2 class="section-title" data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">What Our Clients Say</h2>
+        </div>
+        <div class="testimonial-slider reveal">
+            <div class="testimonial-item active">
+                <p class="testimonial-text" data-en="&ldquo;Exceptional service from start to finish. The team helped me find my dream car and the whole process was seamless. Highly recommend LuxeDrive to anyone looking for premium vehicles in UAE.&rdquo;" data-ar="&ldquo;خدمة استثنائية من البداية إلى النهاية. ساعدني الفريق في العثور على سيارة أحلامي وكانت العملية بأكملها سلسة. أنصح بشدة بـ LuxeDrive لأي شخص يبحث عن سيارات فاخرة في الإمارات.&rdquo;">"Exceptional service from start to finish. The team helped me find my dream car and the whole process was seamless. Highly recommend LuxeDrive to anyone looking for premium vehicles in UAE."</p>
+                <p class="testimonial-author">Ahmed Al Maktoum</p>
+                <p class="testimonial-role" data-en="Business Executive, Dubai" data-ar="رجل أعمال، دبي">Business Executive, Dubai</p>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text" data-en="&ldquo;Rented a Rolls-Royce for my wedding and the experience was absolutely magical. The car was in pristine condition and the delivery was right on time. Five stars!&rdquo;" data-ar="&ldquo;استأجرت رولز رويس لحفل زفافي وكانت التجربة ساحرة تماماً. كانت السيارة في حالة ممتازة والتوصيل كان في الوقت المحدد. خمس نجوم!&rdquo;">"Rented a Rolls-Royce for my wedding and the experience was absolutely magical. The car was in pristine condition and the delivery was right on time. Five stars!"</p>
+                <p class="testimonial-author">Sarah Al Rashid</p>
+                <p class="testimonial-role" data-en="Event Planner, Abu Dhabi" data-ar="منظمة فعاليات، أبوظبي">Event Planner, Abu Dhabi</p>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text" data-en="&ldquo;I've been renting from LuxeDrive for over 2 years now. Their monthly plans are unbeatable and the car quality is always top-notch. The best in the business.&rdquo;" data-ar="&ldquo;أستأجر من LuxeDrive منذ أكثر من عامين الآن. خططهم الشهرية لا تقبل المنافسة وجودة السيارات دائماً من الدرجة الأولى. الأفضل في هذا المجال.&rdquo;">"I've been renting from LuxeDrive for over 2 years now. Their monthly plans are unbeatable and the car quality is always top-notch. The best in the business."</p>
+                <p class="testimonial-author">Mohammed Al Nahyan</p>
+                <p class="testimonial-role" data-en="Entrepreneur, Sharjah" data-ar="رائد أعمال، الشارقة">Entrepreneur, Sharjah</p>
+            </div>
+            <div class="testimonial-dots">
+                <div class="testimonial-dot active" onclick="showTestimonial(0)"></div>
+                <div class="testimonial-dot" onclick="showTestimonial(1)"></div>
+                <div class="testimonial-dot" onclick="showTestimonial(2)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="section-header reveal">
+            <p class="section-tag" data-en="GET IN TOUCH" data-ar="تواصل معنا">GET IN TOUCH</p>
+            <h2 class="section-title" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</h2>
+            <p class="section-desc" data-en="Ready to find your perfect car? Get in touch with our team today." data-ar="مستعد للعثور على سيارتك المثالية؟ تواصل مع فريقنا اليوم.">Ready to find your perfect car? Get in touch with our team today.</p>
+        </div>
+        <div class="contact-grid">
+            <form class="contact-form reveal">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+                        <input type="text" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
+                        <input type="tel" placeholder="+971 50 XXX XXXX">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-en="Email" data-ar="البريد الإلكتروني">Email</label>
+                        <input type="email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Interested In" data-ar="مهتم بـ">Interested In</label>
+                        <select>
+                            <option data-en="Buying a Car" data-ar="شراء سيارة">Buying a Car</option>
+                            <option data-en="Renting a Car" data-ar="تأجير سيارة">Renting a Car</option>
+                            <option data-en="Chauffeur Service" data-ar="خدمة سائق">Chauffeur Service</option>
+                            <option data-en="Trade-In" data-ar="استبدال">Trade-In</option>
+                            <option data-en="Other" data-ar="أخرى">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label data-en="Message" data-ar="الرسالة">Message</label>
+                    <textarea placeholder="Tell us what you're looking for..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: fit-content;" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+            </form>
+            <div class="contact-info reveal">
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4 data-en="Showroom Location" data-ar="موقع صالة العرض">Showroom Location</h4>
+                        <p data-en="Sheikh Zayed Road, Al Quoz<br>Dubai, United Arab Emirates" data-ar="شارع الشيخ زايد، القوز<br>دبي، الإمارات العربية المتحدة">Sheikh Zayed Road, Al Quoz<br>Dubai, United Arab Emirates</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4 data-en="Call Us" data-ar="اتصل بنا">Call Us</h4>
+                        <p>+971 4 XXX XXXX<br>+971 50 XXX XXXX</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4 data-en="Email Us" data-ar="راسلنا">Email Us</h4>
+                        <p>info@luxedrive.ae<br>sales@luxedrive.ae</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <h4 data-en="Working Hours" data-ar="ساعات العمل">Working Hours</h4>
+                        <p data-en="Sat - Thu: 9:00 AM - 9:00 PM<br>Friday: 2:00 PM - 9:00 PM" data-ar="السبت - الخميس: 9:00 صباحاً - 9:00 مساءً<br>الجمعة: 2:00 ظهراً - 9:00 مساءً">Sat - Thu: 9:00 AM - 9:00 PM<br>Friday: 2:00 PM - 9:00 PM</p>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <p data-en="📍 Interactive Map - Sheikh Zayed Road, Dubai" data-ar="📍 خريطة تفاعلية - شارع الشيخ زايد، دبي">📍 Interactive Map - Sheikh Zayed Road, Dubai</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">LUXE<span>DRIVE</span></a>
+                <p data-en="Your premier destination for luxury car sales and rentals in the UAE. We offer an unmatched selection of premium vehicles with exceptional service." data-ar="وجهتك الأولى لبيع وتأجير السيارات الفاخرة في الإمارات. نقدم مجموعة لا مثيل لها من السيارات الفاخرة مع خدمة استثنائية.">Your premier destination for luxury car sales and rentals in the UAE. We offer an unmatched selection of premium vehicles with exceptional service.</p>
+                <div class="social-links">
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                <ul>
+                    <li><a href="#" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    <li><a href="#" data-en="Our Cars" data-ar="سياراتنا">Our Cars</a></li>
+                    <li><a href="#" data-en="Rental Plans" data-ar="خطط التأجير">Rental Plans</a></li>
+                    <li><a href="#" data-en="Financing" data-ar="التمويل">Financing</a></li>
+                    <li><a href="#" data-en="Blog" data-ar="المدونة">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-en="Car Brands" data-ar="ماركات السيارات">Car Brands</h4>
+                <ul>
+                    <li><a href="#">Mercedes-Benz</a></li>
+                    <li><a href="#">BMW</a></li>
+                    <li><a href="#">Porsche</a></li>
+                    <li><a href="#">Rolls-Royce</a></li>
+                    <li><a href="#">Lamborghini</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-en="Support" data-ar="الدعم">Support</h4>
+                <ul>
+                    <li><a href="#" data-en="FAQ" data-ar="الأسئلة الشائعة">FAQ</a></li>
+                    <li><a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a></li>
+                    <li><a href="#" data-en="Terms & Conditions" data-ar="الشروط والأحكام">Terms & Conditions</a></li>
+                    <li><a href="#" data-en="Warranty" data-ar="الضمان">Warranty</a></li>
+                    <li><a href="#" data-en="Careers" data-ar="الوظائف">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-en="© 2026 LuxeDrive UAE. All rights reserved Designed & Developed by &quot;Orion FX&quot;" data-ar="© 2026 لوكس درايف الإمارات. جميع الحقوق محفوظة. تصميم وتطوير &quot;Orion FX&quot;">© 2026 LuxeDrive UAE. All rights reserved Designed & Developed by "Orion FX"</p>
+            <p data-en="Designed with ♥ in Dubai" data-ar="صُمم بـ ♥ في دبي">Designed with ♥ in Dubai</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Float -->
+    <div class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="window.open('https://wa.me/971500000000', '_blank')">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                }, 500);
+            }, 800);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        // Hero Slider with dissolve effect
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // 3D Scene with Three.js
+        function init3D() {
+            const canvas = document.getElementById('hero-3d');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Abstract geometric sculpture (no car branding)
+            const group = new THREE.Group();
+
+            // Main body - sleek elongated shape
+            const bodyGeometry = new THREE.TorusKnotGeometry(1.5, 0.4, 100, 16, 2, 3);
+            const bodyMaterial = new THREE.MeshPhongMaterial({
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.3,
+                wireframe: true
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            group.add(body);
+
+            // Inner sphere
+            const sphereGeometry = new THREE.IcosahedronGeometry(1.2, 1);
+            const sphereMaterial = new THREE.MeshPhongMaterial({
+                color: 0xFFFFFF,
+                transparent: true,
+                opacity: 0.1,
+                wireframe: true
+            });
+            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            group.add(sphere);
+
+            // Outer ring
+            const ringGeometry = new THREE.TorusGeometry(2.5, 0.05, 16, 100);
+            const ringMaterial = new THREE.MeshPhongMaterial({
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.5
+            });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = Math.PI / 3;
+            group.add(ring);
+
+            // Second ring
+            const ring2 = new THREE.Mesh(
+                new THREE.TorusGeometry(2.8, 0.03, 16, 100),
+                new THREE.MeshPhongMaterial({
+                    color: 0xFFFFFF,
+                    transparent: true,
+                    opacity: 0.3
+                })
+            );
+            ring2.rotation.x = -Math.PI / 4;
+            ring2.rotation.y = Math.PI / 6;
+            group.add(ring2);
+
+            // Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 500;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 8;
+            }
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.6
+            });
+            const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            group.add(particles);
+
+            scene.add(group);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xD4AF37, 2, 100);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            const pointLight2 = new THREE.PointLight(0x1E3A5F, 1, 100);
+            pointLight2.position.set(-5, -5, 5);
+            scene.add(pointLight2);
+
+            // Mouse interaction
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                group.rotation.y += 0.003;
+                group.rotation.x += 0.001;
+                body.rotation.z += 0.002;
+                sphere.rotation.y -= 0.005;
+                ring.rotation.z += 0.005;
+                ring2.rotation.z -= 0.003;
+                particles.rotation.y += 0.001;
+
+                group.position.x += (mouseX * 0.5 - group.position.x) * 0.02;
+                group.position.y += (mouseY * 0.3 - group.position.y) * 0.02;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        init3D();
+
+        // Language Toggle
+        let isArabic = false;
+
+        function toggleLanguage() {
+            isArabic = !isArabic;
+            const body = document.body;
+            const langBtn = document.getElementById('langToggle');
+
+            if (isArabic) {
+                body.classList.add('ar');
+                body.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+                langBtn.textContent = 'English';
+            } else {
+                body.classList.remove('ar');
+                body.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+                langBtn.textContent = 'العربية';
+            }
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (isArabic) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-ar');
+                    } else {
+                        el.innerHTML = el.getAttribute('data-ar');
+                    }
+                } else {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-en');
+                    } else {
+                        el.innerHTML = el.getAttribute('data-en');
+                    }
+                }
+            });
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('hamburger').classList.toggle('active');
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Search tabs
+        document.querySelectorAll('.search-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Scroll Reveal
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + '+';
+                    }
+                };
+
+                // Start when visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+
+                observer.observe(counter);
+            });
+        }
+
+        animateCounters();
+
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const dots = document.querySelectorAll('.testimonial-dot');
+
+        function showTestimonial(index) {
+            testimonials.forEach(t => t.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 6000);
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(isArabic ? 'شكراً لتواصلك! سنرد عليك قريباً.' : 'Thank you for contacting us! We will get back to you soon.');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
