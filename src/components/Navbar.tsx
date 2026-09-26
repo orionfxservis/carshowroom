@@ -137,15 +137,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
-            {/* Zero-NPM GitHub Pages Export Modal Button */}
-            <button
-              onClick={onOpenVanillaExport}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium hover:bg-emerald-500 hover:text-black transition-all"
-              title="Download clean HTML/CSS/JS with no npm for GitHub Pages deployment"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>{isAr ? 'كود خالي من NPM' : 'Vanilla Export'}</span>
-            </button>
 
             {/* Manager Operations & Analytics Dashboard Button */}
             <button

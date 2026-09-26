@@ -311,14 +311,7 @@ export const Footer: React.FC<FooterProps> = ({
                   </span>
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={onOpenVanillaExport}
-                  className="hover:text-emerald-400 text-left transition-colors flex items-center justify-between w-full text-emerald-400/90 group"
-                >
-                  <span>{isAr ? 'تصدير كود Vanilla النظيف' : 'Zero-NPM Vanilla Export'}</span>
-                </button>
-              </li>
+
             </ul>
           </div>
 
@@ -442,11 +435,7 @@ export const Footer: React.FC<FooterProps> = ({
             © {new Date().getFullYear()} LuxeDrive UAE Motor Cars LLC. {isAr ? 'جميع الحقوق محفوظة. صالة عرض معتمدة.' : 'All Rights Reserved. Verified Luxury Showroom.'}
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <button onClick={onOpenVanillaExport} className="text-emerald-400 hover:underline flex items-center gap-1 font-mono">
-              <span>●</span>
-              <span>Zero-NPM Vanilla HTML</span>
-            </button>
-            <span>•</span>
+
             <span className="flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>AES-256 E2EE</span>
