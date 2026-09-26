@@ -1,0 +1,6 @@
+{
+  "name": "LuxeDrive UAE - Premium Car Showroom & Analytics",
+  "description": "High-performance luxury car showroom for UAE with mobile-first navigation, optimized lazy-loaded imagery, real-time analytics dashboard, end-to-end encrypted VIP bookings, and zero-npm vanilla export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

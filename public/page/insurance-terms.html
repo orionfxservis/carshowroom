@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Insurance Terms | LuxeDrive UAE</title>
+  <meta name="description" content="Comprehensive motor insurance coverage, excess deductibles, Super Damage Waiver (SDW), and claims protocol for luxury and exotic vehicles at LuxeDrive UAE.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070709;
+      --card-bg: #0E0E12;
+      --card-inner: #141419;
+      --gold: #D4AF37;
+      --gold-light: #F4E5A3;
+      --gold-dark: #8C6D1F;
+      --border: rgba(212, 175, 55, 0.25);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 7, 9, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-icon-inner {
+      width: 100%;
+      height: 100%;
+      background: #0A0A0A;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 14px;
+    }
+    .brand-text {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      background: linear-gradient(to right, var(--gold-light), var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .page-hero {
+      padding: 56px 0 36px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    }
+    .breadcrumbs {
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .breadcrumbs a { color: var(--gold); text-decoration: none; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+
+    .content-wrap { padding: 48px 0 80px; }
+    .legal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .legal-card h2 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legal-card p {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .legal-card ul {
+      margin: 12px 0 18px 24px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-card ul li strong { color: #fff; }
+
+    /* TABLE */
+    .insurance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 13px;
+    }
+    .insurance-table th, .insurance-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+    .insurance-table th {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold);
+      font-family: var(--font-serif);
+      letter-spacing: 0.5px;
+    }
+    .insurance-table td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .highlight-box {
+      background: rgba(212, 175, 55, 0.05);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .page-footer {
+      background: #040405;
+      border-top: 1px solid var(--border);
+      padding: 40px 0 30px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .footer-links a { color: var(--gold); text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media print {
+      .top-header, .btn-back, .page-footer { display: none; }
+      body { background: #fff; color: #000; }
+      .legal-card { border: 1px solid #ccc; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="brand">
+          <div class="brand-icon">
+            <div class="brand-icon-inner">✦</div>
+          </div>
+          <span class="brand-text">LUXEDRIVE</span>
+        </a>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button onclick="window.print()" class="btn-back" style="background:none; border-color:var(--border-subtle); color:var(--text-muted); cursor:pointer;">
+            🖨️ Print
+          </button>
+          <a href="/" class="btn-back">
+            ← Return to Showroom
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="/">Home</a> / <span>Legal & Governance</span> / <span>Insurance Terms</span>
+      </div>
+      <div class="badge">
+        <span>🛡️</span>
+        <span>UAE Central Bank Regulated Underwriting</span>
+      </div>
+      <h1>Comprehensive Insurance Terms</h1>
+      <p style="color:var(--text-muted); max-width:760px; font-size:15px; margin-bottom:18px;">
+        Exhaustive protection guidelines, deductible excess schedules, Super Damage Waiver options, and claims protocols for all vehicles in the LuxeDrive UAE fleet.
+      </p>
+      <div class="meta-bar">
+        <div class="meta-item"><span>🏛️</span> <strong>Underwriting Tier:</strong> Grade A UAE Licensed</div>
+        <div class="meta-item"><span>💰</span> <strong>Third-Party Liability:</strong> AED 10,000,000</div>
+        <div class="meta-item"><span>🚨</span> <strong>Emergency Response:</strong> 24/7 Priority Rescue</div>
+        <div class="meta-item"><span>📅</span> <strong>Policy Cycle:</strong> 2026/2027 Term</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="content-wrap">
+    <div class="container">
+
+      <!-- Section 1 -->
+      <div class="legal-card">
+        <h2><span>1.</span> Comprehensive Coverage Scope</h2>
+        <p>
+          Every vehicle in the LuxeDrive UAE portfolio is protected by an official <strong>Comprehensive Motor Insurance Policy</strong> underwritten by Tier-1 UAE Central Bank licensed insurance institutions (Sukoon Insurance / ADNIC).
+        </p>
+        <p>
+          Coverage automatically incorporates:
+        </p>
+        <ul>
+          <li><strong>Own Damage Protection:</strong> Complete coverage for accidental damage, impact, mechanical repair, and body restoration resulting from collisions on recognized public highways within the United Arab Emirates.</li>
+          <li><strong>Third-Party Liability:</strong> Protection against bodily injury, loss of life, or property damage caused to third parties up to <strong>AED 10,000,000</strong> per incident.</li>
+          <li><strong>Perils Coverage:</strong> Fire, external explosion, lightning, storm, theft, and malicious damage.</li>
+          <li><strong>Agency Repairs:</strong> Strictly authorized official OEM manufacturer workshops (e.g., Al Tayer Motors for Ferrari, Al Habtoor Motors for Bentley, AGMC for Rolls-Royce & BMW).</li>
+        </ul>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="legal-card">
+        <h2><span>2.</span> Standard Excess & Deductible Schedule</h2>
+        <p>
+          In the event of an accident where the driver is determined by the Dubai Police to be at fault (or where the third party is unidentified/hit-and-run), the Client is responsible strictly for the deductible excess specified below:
+        </p>
+
+        <div style="overflow-x:auto;">
+          <table class="insurance-table">
+            <thead>
+              <tr>
+                <th>Vehicle Class / Category</th>
+                <th>Standard Excess (AED)</th>
+                <th>SDW Zero-Excess Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Prestige Sedans & Grand SUVs</strong><br><small style="color:var(--text-dim);">Mercedes S580, Range Rover Electric, BMW 760i</small></td>
+                <td>AED 3,000</td>
+                <td>AED 350 / day</td>
+              </tr>
+              <tr>
+                <td><strong>High-Performance Sports & GT</strong><br><small style="color:var(--text-dim);">Porsche 911 GT3 RS, Mercedes-AMG G63</small></td>
+                <td>AED 6,000</td>
+                <td>AED 650 / day</td>
+              </tr>
+              <tr>
+                <td><strong>Exotic Supercars & Hypercars</strong><br><small style="color:var(--text-dim);">Ferrari 296 GTB, Lamborghini Revuelto, Rolls-Royce Spectre</small></td>
+                <td>AED 12,000</td>
+                <td>AED 1,200 / day</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="highlight-box">
+          <strong>Non-Fault Incidents (Green Report):</strong> If the Dubai Police incident report designates the third party as 100% at fault (Green Report), the Client bears <strong>ZERO (AED 0) deductible</strong>.
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="legal-card">
+        <h2><span>3.</span> Super Damage Waiver (SDW / Zero-Excess)</h2>
+        <p>
+          Clients seeking complete peace of mind may opt for our proprietary <strong>Super Damage Waiver (SDW)</strong> at the time of reservation. The SDW package completely waives standard deductibles for bodywork scrapes, minor curb wheel rash, and windshield stone chips, reducing client liability to AED 0 (subject to a valid Dubai Police report).
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="legal-card">
+        <h2><span>4.</span> Mandatory Dubai Police Report Requirement</h2>
+        <p>
+          Under the UAE Federal Traffic Law, an official <strong>Police Traffic Accident Report</strong> is mandatory for any claim to be processed by UAE insurance underwriters:
+        </p>
+        <ul>
+          <li><strong>Immediate Notification:</strong> In the event of any collision, scrape, or scratch, the Client must immediately halt the vehicle safely and register an accident claim via the <strong>Dubai Police Smart App</strong> or by calling <strong>999 (Emergency) / 901 (Non-Emergency)</strong>. In Abu Dhabi, claims must be processed through <strong>Saaed (800 72233)</strong>.</li>
+          <li><strong>Absence of Report:</strong> Failure to secure an official police report renders all insurance indemnity null and void. In such circumstances, the Client remains personally liable for the full commercial cost of repairs and vehicle loss of use.</li>
+        </ul>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="legal-card">
+        <h2><span>5.</span> VIP Roadside Assistance & Replacement Vehicle</h2>
+        <p>
+          LuxeDrive maintains a dedicated 24/7 flatbed recovery unit and mobile technical response team:
+        </p>
+        <ul>
+          <li>Guaranteed roadside arrival within forty-five (45) minutes in central Dubai and Abu Dhabi.</li>
+          <li>Immediate dispatch of an equivalent or superior luxury replacement vehicle within ninety (90) minutes should the vehicle require workshop inspection.</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/page/terms-and-conditions.html">Terms & Conditions</a>
+        <a href="/page/privacy-policy.html">Discretion & Privacy Policy</a>
+        <a href="/page/insurance-terms.html">Comprehensive Insurance Terms</a>
+        <a href="/page/cookies-policy.html">Cookies Policy</a>
+        <a href="/">Showroom Main</a>
+      </div>
+      <div>
+        © 2026 LuxeDrive UAE Motor Cars LLC. All Rights Reserved. Sheikh Zayed Road, Exit 43, Al Quoz 1, Dubai, UAE.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

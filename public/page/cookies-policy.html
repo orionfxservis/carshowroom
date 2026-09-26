@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookies Policy | LuxeDrive UAE</title>
+  <meta name="description" content="LuxeDrive UAE Cookies Policy. Transparent disclosure on functional session tokens, Web Crypto storage, and our zero-tracking privacy architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070709;
+      --card-bg: #0E0E12;
+      --card-inner: #141419;
+      --gold: #D4AF37;
+      --gold-light: #F4E5A3;
+      --gold-dark: #8C6D1F;
+      --border: rgba(212, 175, 55, 0.25);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 7, 9, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-icon-inner {
+      width: 100%;
+      height: 100%;
+      background: #0A0A0A;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 14px;
+    }
+    .brand-text {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      background: linear-gradient(to right, var(--gold-light), var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .page-hero {
+      padding: 56px 0 36px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+    }
+    .breadcrumbs {
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .breadcrumbs a { color: var(--gold); text-decoration: none; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+
+    .content-wrap { padding: 48px 0 80px; }
+    .legal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .legal-card h2 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legal-card p {
+      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .legal-card ul {
+      margin: 12px 0 18px 24px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-card ul li strong { color: #fff; }
+
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 13px;
+    }
+    .cookie-table th, .cookie-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+    .cookie-table th {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold);
+      font-family: var(--font-serif);
+    }
+    .cookie-table td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .highlight-box {
+      background: rgba(212, 175, 55, 0.05);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .page-footer {
+      background: #040405;
+      border-top: 1px solid var(--border);
+      padding: 40px 0 30px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .footer-links a { color: var(--gold); text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media print {
+      .top-header, .btn-back, .page-footer { display: none; }
+      body { background: #fff; color: #000; }
+      .legal-card { border: 1px solid #ccc; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="brand">
+          <div class="brand-icon">
+            <div class="brand-icon-inner">✦</div>
+          </div>
+          <span class="brand-text">LUXEDRIVE</span>
+        </a>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button onclick="window.print()" class="btn-back" style="background:none; border-color:var(--border-subtle); color:var(--text-muted); cursor:pointer;">
+            🖨️ Print
+          </button>
+          <a href="/" class="btn-back">
+            ← Return to Showroom
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="/">Home</a> / <span>Legal & Governance</span> / <span>Cookies Policy</span>
+      </div>
+      <div class="badge">
+        <span>🍪</span>
+        <span>Transparent Digital Governance & Tracking Disclosure</span>
+      </div>
+      <h1>Cookies & Storage Policy</h1>
+      <p style="color:var(--text-muted); max-width:760px; font-size:15px; margin-bottom:18px;">
+        Exhaustive transparency regarding browser cookies, local storage mechanisms, Web Crypto caching, and our zero-ad tracking architecture.
+      </p>
+      <div class="meta-bar">
+        <div class="meta-item"><span>🚫</span> <strong>Third-Party Ad Trackers:</strong> Zero</div>
+        <div class="meta-item"><span>🔒</span> <strong>Security Protocol:</strong> SameSite=Strict / HTTPS Only</div>
+        <div class="meta-item"><span>📋</span> <strong>Privacy Directive:</strong> UAE PDPL & ePrivacy</div>
+        <div class="meta-item"><span>📅</span> <strong>Revision:</strong> January 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="content-wrap">
+    <div class="container">
+
+      <!-- Section 1 -->
+      <div class="legal-card">
+        <h2><span>1.</span> What Are Cookies and Local Web Storage?</h2>
+        <p>
+          Cookies and HTML5 Local Storage are compact text entries and data structures placed on your device by websites you visit. They are used to retain user preferences, maintain session security, and ensure seamless portal performance.
+        </p>
+        <p>
+          At <strong>LuxeDrive UAE</strong>, our digital architecture is purposefully engineered with <strong>Zero-Surveillance discipline</strong>: we do not permit third-party advertising networks, cross-site trackers, or commercial data brokers to place tracking beacons on your browser.
+        </p>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="legal-card">
+        <h2><span>2.</span> Categories of Storage Utilized</h2>
+        <p>
+          Our platform relies exclusively on two categories of client-side storage:
+        </p>
+
+        <div style="overflow-x:auto;">
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie / Storage Key</th>
+                <th>Type & Scope</th>
+                <th>Purpose</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>luxedrive_lang</strong></td>
+                <td>Functional Preference</td>
+                <td>Stores your language choice (English or Arabic with RTL alignment).</td>
+                <td>12 Months</td>
+              </tr>
+              <tr>
+                <td><strong>luxedrive_compare_tray</strong></td>
+                <td>Client Utility</td>
+                <td>Preserves up to 3 selected vehicles in the side-by-side comparison drawer across browser sessions.</td>
+                <td>Session</td>
+              </tr>
+              <tr>
+                <td><strong>luxedrive_crypto_session</strong></td>
+                <td>Strictly Necessary Security</td>
+                <td>Stores client-side Web Crypto AES-256 session initialization vectors for form encryption.</td>
+                <td>Browsing Session</td>
+              </tr>
+              <tr>
+                <td><strong>luxedrive_offline_cache</strong></td>
+                <td>PWA / Offline Service Worker</td>
+                <td>Caches car inventory catalog images and styling so the showroom remains viewable without an internet connection.</td>
+                <td>30 Days</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="highlight-box">
+          <strong>Zero Commercial Tracking:</strong> LuxeDrive does NOT employ Facebook Pixels, Google Remarketing, TikTok pixels, or programmatic behavioral cookies. Your browsing remains strictly confidential.
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="legal-card">
+        <h2><span>3.</span> Managing & Disabling Browser Cookies</h2>
+        <p>
+          You retain sovereign authority over cookies. You may configure your browser at any time to reject cookies or purge existing local storage:
+        </p>
+        <ul>
+          <li><strong>Apple Safari (iOS / macOS):</strong> Settings → Safari → Advanced → Block All Cookies.</li>
+          <li><strong>Google Chrome:</strong> Settings → Privacy and Security → Cookies and other site data.</li>
+          <li><strong>Mozilla Firefox:</strong> Settings → Privacy & Security → Enhanced Tracking Protection (Strict).</li>
+          <li><strong>Microsoft Edge:</strong> Settings → Cookies and Site Permissions.</li>
+        </ul>
+        <p style="font-size:13px; color:var(--text-dim);">
+          *Please note: Disabling strictly necessary functional storage may reset your language preference back to English and clear your vehicle comparison tray.
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="legal-card">
+        <h2><span>4.</span> Inquiries Regarding Digital Governance</h2>
+        <p>
+          If you have questions regarding our cookies or client-side storage policies, contact our privacy desk directly:
+        </p>
+        <p style="color:var(--gold); font-weight:600;">
+          ✉️ <a href="mailto:privacy@luxedrive-uae.com" style="color:var(--gold);">privacy@luxedrive-uae.com</a><br>
+          🏢 LuxeDrive UAE Motor Cars LLC, Sheikh Zayed Road, Dubai
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/page/terms-and-conditions.html">Terms & Conditions</a>
+        <a href="/page/privacy-policy.html">Discretion & Privacy Policy</a>
+        <a href="/page/insurance-terms.html">Comprehensive Insurance Terms</a>
+        <a href="/page/cookies-policy.html">Cookies Policy</a>
+        <a href="/">Showroom Main</a>
+      </div>
+      <div>
+        © 2026 LuxeDrive UAE Motor Cars LLC. All Rights Reserved. Sheikh Zayed Road, Exit 43, Al Quoz 1, Dubai, UAE.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

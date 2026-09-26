@@ -1,0 +1,17 @@
+{
+  "name": "LuxeDrive UAE - Premium Car Showroom",
+  "short_name": "LuxeDrive",
+  "description": "Premium luxury and sports car showroom in UAE. Buy and rent Rolls-Royce, Porsche, Ferrari, Lamborghini, Mercedes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#D4AF37",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
